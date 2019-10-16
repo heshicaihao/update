@@ -20,7 +20,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 
+import org.lzh.framework.updatepluginlib.R;
 import org.lzh.framework.updatepluginlib.base.CheckNotifier;
+import org.lzh.framework.updatepluginlib.util.ActivityManager;
 import org.lzh.framework.updatepluginlib.util.SafeDialogHandle;
 
 /**
@@ -32,12 +34,12 @@ import org.lzh.framework.updatepluginlib.util.SafeDialogHandle;
 public class DefaultUpdateNotifier extends CheckNotifier {
     @Override
     public Dialog create(Activity activity) {
-        String updateContent = "版本号: " + update.getVersionName() + "\n\n\n"
+        String updateContent = ActivityManager.get().topActivity().getString(R.string.version_number_0)+ update.getVersionName() + "\n\n\n"
                 + update.getUpdateContent();
         AlertDialog.Builder builder =  new AlertDialog.Builder(activity)
                 .setMessage(updateContent)
-                .setTitle("你有新版本需要更新")
-                .setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
+                .setTitle(ActivityManager.get().topActivity().getString(R.string.you_have_a_new_version_to_update))
+                .setPositiveButton(ActivityManager.get().topActivity().getString(R.string.update_now), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         sendDownloadRequest();
@@ -45,7 +47,7 @@ public class DefaultUpdateNotifier extends CheckNotifier {
                     }
                 });
         if (update.isIgnore() && !update.isForced()) {
-            builder.setNeutralButton("忽略此版本", new DialogInterface.OnClickListener() {
+            builder.setNeutralButton(ActivityManager.get().topActivity().getString(R.string.ignore_this_version), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     sendUserIgnore();
@@ -55,7 +57,7 @@ public class DefaultUpdateNotifier extends CheckNotifier {
         }
 
         if (!update.isForced()) {
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(ActivityManager.get().topActivity().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     sendUserCancel();

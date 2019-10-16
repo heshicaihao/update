@@ -20,6 +20,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 
+import org.lzh.framework.updatepluginlib.R;
 import org.lzh.framework.updatepluginlib.base.DownloadCallback;
 import org.lzh.framework.updatepluginlib.base.DownloadNotifier;
 import org.lzh.framework.updatepluginlib.model.Update;
@@ -69,9 +70,9 @@ public class DefaultDownloadNotifier extends DownloadNotifier {
     private void createRestartDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityManager.get().topActivity())
                 .setCancelable(!update.isForced())
-                .setTitle("下载apk失败")
-                .setMessage("是否重新下载？")
-                .setNeutralButton(update.isForced() ? "退出" : "取消", new DialogInterface.OnClickListener() {
+                .setTitle(ActivityManager.get().topActivity().getString(R.string.failed_to_download_apk))
+                .setMessage(ActivityManager.get().topActivity().getString(R.string.download_again_or_not))
+                .setNeutralButton(update.isForced() ?ActivityManager.get().topActivity().getString(R.string.quit)  :ActivityManager.get().topActivity().getString(R.string.cancel) , new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (update.isForced()) {
@@ -81,7 +82,7 @@ public class DefaultDownloadNotifier extends DownloadNotifier {
                         }
                     }
                 })
-                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                .setNegativeButton(ActivityManager.get().topActivity().getString(R.string.determine), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         restartDownload();

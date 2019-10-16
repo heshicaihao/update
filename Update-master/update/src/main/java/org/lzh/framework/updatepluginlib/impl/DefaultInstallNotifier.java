@@ -20,7 +20,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 
+import org.lzh.framework.updatepluginlib.R;
 import org.lzh.framework.updatepluginlib.base.InstallNotifier;
+import org.lzh.framework.updatepluginlib.util.ActivityManager;
 import org.lzh.framework.updatepluginlib.util.SafeDialogHandle;
 
 import java.lang.reflect.Field;
@@ -34,12 +36,12 @@ public class DefaultInstallNotifier extends InstallNotifier {
 
     @Override
     public Dialog create(Activity activity) {
-        String updateContent = String.format("版本号：%s\n\n%s",
+        String updateContent = String.format(ActivityManager.get().topActivity().getString(R.string.version_number),
                 update.getVersionName(), update.getUpdateContent());
         AlertDialog.Builder builder = new AlertDialog.Builder(activity)
-                .setTitle("安装包已就绪，是否安装？")
+                .setTitle(ActivityManager.get().topActivity().getString(R.string.the_installation_package_is_ready_do_you_want_to_install_it))
                 .setMessage(updateContent)
-                .setPositiveButton("立即安装", new DialogInterface.OnClickListener() {
+                .setPositiveButton(ActivityManager.get().topActivity().getString(R.string.install_now), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (update.isForced()) {
@@ -52,7 +54,7 @@ public class DefaultInstallNotifier extends InstallNotifier {
                 });
 
         if (!update.isForced() && update.isIgnore()) {
-            builder.setNeutralButton("忽略此版本", new DialogInterface.OnClickListener() {
+            builder.setNeutralButton(ActivityManager.get().topActivity().getString(R.string.ignore_this_version), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     sendCheckIgnore();
@@ -62,7 +64,7 @@ public class DefaultInstallNotifier extends InstallNotifier {
         }
 
         if (!update.isForced()) {
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(ActivityManager.get().topActivity().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     sendUserCancel();
