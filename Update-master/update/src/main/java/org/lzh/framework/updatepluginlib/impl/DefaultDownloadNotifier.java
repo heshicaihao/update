@@ -70,9 +70,9 @@ public class DefaultDownloadNotifier extends DownloadNotifier {
     private void createRestartDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityManager.get().topActivity())
                 .setCancelable(!update.isForced())
-                .setTitle(ActivityManager.get().topActivity().getString(R.string.failed_to_download_apk))
-                .setMessage(ActivityManager.get().topActivity().getString(R.string.download_again_or_not))
-                .setNeutralButton(update.isForced() ?ActivityManager.get().topActivity().getString(R.string.quit)  :ActivityManager.get().topActivity().getString(R.string.cancel) , new DialogInterface.OnClickListener() {
+                .setTitle(ActivityManager.get().topActivity().getString(R.string.hsc_update_failed_to_download_apk))
+                .setMessage(ActivityManager.get().topActivity().getString(R.string.hsc_update_download_again_or_not))
+                .setNeutralButton(update.isForced() ?ActivityManager.get().topActivity().getString(R.string.hsc_update_quit)  :ActivityManager.get().topActivity().getString(R.string.hsc_update_cancel) , new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (update.isForced()) {
@@ -82,7 +82,7 @@ public class DefaultDownloadNotifier extends DownloadNotifier {
                         }
                     }
                 })
-                .setNegativeButton(ActivityManager.get().topActivity().getString(R.string.determine), new DialogInterface.OnClickListener() {
+                .setNegativeButton(ActivityManager.get().topActivity().getString(R.string.hsc_update_determine), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         restartDownload();

@@ -36,12 +36,12 @@ public class DefaultInstallNotifier extends InstallNotifier {
 
     @Override
     public Dialog create(Activity activity) {
-        String updateContent = String.format(ActivityManager.get().topActivity().getString(R.string.version_number),
+        String updateContent = String.format(ActivityManager.get().topActivity().getString(R.string.hsc_update_version_number_add),
                 update.getVersionName(), update.getUpdateContent());
         AlertDialog.Builder builder = new AlertDialog.Builder(activity)
-                .setTitle(ActivityManager.get().topActivity().getString(R.string.the_installation_package_is_ready_do_you_want_to_install_it))
+                .setTitle(ActivityManager.get().topActivity().getString(R.string.hsc_update_the_installation_package_is_ready_do_you_want_to_install_it))
                 .setMessage(updateContent)
-                .setPositiveButton(ActivityManager.get().topActivity().getString(R.string.install_now), new DialogInterface.OnClickListener() {
+                .setPositiveButton(ActivityManager.get().topActivity().getString(R.string.hsc_update_install_now), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (update.isForced()) {
@@ -54,7 +54,7 @@ public class DefaultInstallNotifier extends InstallNotifier {
                 });
 
         if (!update.isForced() && update.isIgnore()) {
-            builder.setNeutralButton(ActivityManager.get().topActivity().getString(R.string.ignore_this_version), new DialogInterface.OnClickListener() {
+            builder.setNeutralButton(ActivityManager.get().topActivity().getString(R.string.hsc_update_ignore_this_version), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     sendCheckIgnore();
@@ -64,7 +64,7 @@ public class DefaultInstallNotifier extends InstallNotifier {
         }
 
         if (!update.isForced()) {
-            builder.setNegativeButton(ActivityManager.get().topActivity().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(ActivityManager.get().topActivity().getString(R.string.hsc_update_cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     sendUserCancel();
